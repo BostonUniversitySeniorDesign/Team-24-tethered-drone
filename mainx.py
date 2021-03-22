@@ -1,10 +1,8 @@
 from calculate import *
 from plot import *
-#use this file to run justplots.py, plot.py, and calculate.py
+def main(x_vec, y_vec,line1, F, V, A):
 
-def main(x_vec, y_vec,line1, F, V):
-
-	xlist = calc(F, V)
+	xlist = calc(F, V, A)
 	line1 = live_plotter(x_vec, y_vec, line1)
 
 	#print(xlist)
@@ -24,9 +22,21 @@ if __name__ == "__main__":
 	y_vec = np.zeros(len(x_vec))
 	#print(y_vec)
 	line1 = []
-	plist = main(x_vec, y_vec, line1, 0, 0)
-	
+	A = 10
+
+	default = input("Do you want to run with the default settings? (y/n)")
+
+	if default == 'y':
+		plist = main(x_vec, y_vec, line1, 0, 0, A)
+	elif default == 'n':
+		A = input("Input wing span of drone: ")
+		plist = main(x_vec, y_vec, line1, 0, 0, A)
+	else:
+		print("Invalid selection")
+		print("Proceeding with default settings...")
+		plist = main(x_vec, y_vec, line1, 0, 0, A)
+
 	while True:
 		y_vec[-1] = plist[1][0]
-		plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2])
+		plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2], A)
 		y_vec = np.append(y_vec[1:],0.0)
