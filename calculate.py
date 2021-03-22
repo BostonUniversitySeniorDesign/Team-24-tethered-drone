@@ -62,7 +62,7 @@ def calc(F, V, A):
 			if trueforce_up == 0 or math.sin(beta) == 0: 
 				Ft = F
 			else:
-				Ft = trueforce_up/math.sin(beta) #Units of N = Kg/ms^2
+				Ft = trueforce_up*math.cos(90 - alpha - beta) #Units of N = Kg/ms^2
 			if truegspeed == 0 or math.cos(beta) == 0: 
 				Vt = V
 			else: 
