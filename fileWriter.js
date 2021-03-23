@@ -34,7 +34,8 @@ ExtPlane.on('loaded', function(){
     ExtPlane.client.subscribe('sim/flightmodel/position/alpha');
     ExtPlane.client.subscribe('sim/flightmodel/position/groundspeed');
     ExtPlane.client.subscribe('sim/flightmodel/position/true_airspeed');
-    ExtPlane.client.subscribe('sim/cockpit2/temperature/outside_air_temp_degc');
+    ExtPlane.client.subscribe('sim/weather/temperature_ambient_c');
+    //ExtPlane.client.subscribe('sim/cockpit2/temperature/outside_air_temp_degc');
     ExtPlane.client.subscribe('sim/cockpit2/gauges/indicators/wind_speed_kts');
 	
 	// Handle all data-ref changes
@@ -51,7 +52,8 @@ ExtPlane.on('loaded', function(){
         	if (data_ref == 'sim/flightmodel/misc/cl_overall')                   data[4] = value;
         	if (data_ref == 'sim/flightmodel/misc/cd_overall')                   data[5] = value;
         	if (data_ref == 'sim/flightmodel/position/alpha')                    data[6] = value;
-        	if (data_ref == 'sim/cockpit2/temperature/outside_air_temp_degc')    data[7] = value;
+		if (data_ref == 'sim/weather/temperature_ambient_c')    data[7] = value;
+        	//if (data_ref == 'sim/cockpit2/temperature/outside_air_temp_degc')    data[7] = value;
         	if (data_ref == 'sim/cockpit2/gauges/indicators/wind_speed_kts')     data[8] = value;
 
 		fs.writeFile('nodeOutput.txt', 
@@ -62,7 +64,8 @@ ExtPlane.on('loaded', function(){
         	"sim/flightmodel/misc/cl_overall, " + data[4] + "\n" + 
         	"sim/flightmodel/misc/cd_overall, " + data[5] + "\n" + 
         	"sim/flightmodel/position/alpha, " + data[6] + "\n" +
-        	"sim/cockpit2/temperature/outside_air_temp_degc, " + data[7] + "\n" +
+		"sim/weather/temperature_ambient_c, " + data[7] + "\n" +
+        	//"sim/cockpit2/temperature/outside_air_temp_degc, " + data[7] + "\n" +
         	"sim/cockpit2/gauges/indicators/wind_speed_kts, " + data[8] + "\n"
 
 		, function (err) {
