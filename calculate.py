@@ -1,4 +1,4 @@
-def calc(F, V, A):
+def calc(F, V, A, cll, cdd):
 
 	import math
 
@@ -52,39 +52,20 @@ def calc(F, V, A):
 		trueair_temp = float(air_temp[0])	 #air temp
 		truewind_speed = float(wind_speed[0])#wind speed
 
-		if abs(truewind_speed) <= 1:
+		if cll != 0 and cdd != 0:
+			truecl = cll
+			truecd = cdd
 
-			#print(truegspeed)
-			#print(trueYvel)
-			#print(trueforce_up)
-			#print(beta)
+		if truegspeed == 0 or math.cos(beta) == 0: 
+			Vt = V
+		else: 
+			Vt = truegspeed/math.cos(beta)
 
-			if trueforce_up == 0 or math.sin(beta) == 0: 
-				Ft = F
-			else:
-				Ft = trueforce_up*math.cos(90 - alpha - beta) #Units of N = Kg/ms^2
-			if truegspeed == 0 or math.cos(beta) == 0: 
-				Vt = V
-			else: 
-				Vt = truegspeed/math.cos(beta) #Units of m/s
+			p = 100000/(287.058*(trueair_temp + 273.15)) #air density
 
-			#print(Ft)
-			#print(Vt)
+			G = float(truecl/truecd)
 
-			power = abs(Ft)*abs(Vt) #Units of Watts
-
-		else:
-
-			if truegspeed == 0 or math.cos(beta) == 0: 
-				Vt = V
-			else: 
-				Vt = truegspeed/math.cos(beta)
-
-			p = 100000/(287.058*(air_temp + 273.15)) #air density
-
-			G = cl/cd
-
-			Ft = p*((abs(wind_speed)*math.cos(beta) - abs(Vt))^2)*(G^2)*cl*A
+			Ft = p*((abs(truewind_speed)*math.cos(beta) - abs(Vt))**2)*(G**2)*truecl*A
 
 			power = abs(Ft)*abs(Vt)
 
@@ -92,5 +73,4 @@ def calc(F, V, A):
 
 	return xlist
 
-#if __name__ == "__main__":
-#	main()
+
