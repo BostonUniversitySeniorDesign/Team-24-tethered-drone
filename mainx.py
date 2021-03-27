@@ -1,8 +1,8 @@
 from calculate import *
 from plot import *
-def main(x_vec, y_vec,line1, F, V, A):
+def main(x_vec, y_vec,line1, F, V, A, cll, cdd):
 
-	xlist = calc(F, V, A)
+	xlist = calc(F, V, A, cll, cdd)
 	line1 = live_plotter(x_vec, y_vec, line1)
 
 	#print(xlist)
@@ -23,20 +23,24 @@ if __name__ == "__main__":
 	#print(y_vec)
 	line1 = []
 	A = 10
+	cll = 0
+	cdd = 0
 
 	default = input("Do you want to run with the default settings? (y/n)")
 
 	if default == 'y':
-		plist = main(x_vec, y_vec, line1, 0, 0, A)
+		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd)
 	elif default == 'n':
 		A = input("Input wing span of drone: ")
-		plist = main(x_vec, y_vec, line1, 0, 0, A)
+		cll = input("Input lift coefficient of drone: ")
+		cdd = input("Input drag coefficient of drone: ")
+		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd)
 	else:
 		print("Invalid selection")
 		print("Proceeding with default settings...")
-		plist = main(x_vec, y_vec, line1, 0, 0, A)
+		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd)
 
 	while True:
 		y_vec[-1] = plist[1][0]
-		plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2], A)
+		plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2], A, cll, cdd)
 		y_vec = np.append(y_vec[1:],0.0)
