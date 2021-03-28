@@ -2,9 +2,12 @@ def calc(F, V, A, cll, cdd):
 
 	import math
 
-	betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
+	betafile = open("C:\\FlyJus\\dev\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
+	# put your location of buffer.bin here (each user will have a different file path) but will be in the ardupilot build
 
-	datafile = open("C:\\cygwin_64\\home\\JadenCho\\x-plane_calc\\nodeOutput.txt", "r")
+	datafile = open("C:\\Users\\hboja\\Google Drive\\EC 464\\Team-24-tethered-drone\\nodeOutput.txt", "r")
+	# put your location of nodeOutput.txt here, it should be in the same directory as the directory
+	# that is cloned to your local machine from the github
 
 	b = betafile.readline()
 	d = datafile.readlines()
@@ -12,8 +15,8 @@ def calc(F, V, A, cll, cdd):
 	beta = float(b)
 
 	if d == [] or b == []:
-		Ft = F
-		Vt = V
+		Ft = F # Ft is the force of the tether
+		Vt = V # Vt is the reel velocity of the tether
 	else:
 
 		gspeedstrl = d[0]
@@ -58,16 +61,19 @@ def calc(F, V, A, cll, cdd):
 
 		if truegspeed == 0 or math.cos(beta) == 0: 
 			Vt = V
+
 		else: 
 			Vt = truegspeed/math.cos(beta)
 
-			p = 100000/(287.058*(trueair_temp + 273.15)) #air density
+		p = 100000/(287.058*(trueair_temp + 273.15)) #air density
 
-			G = float(truecl/truecd)
+		G = float(truecl/truecd) #ratio of lift coefficient to drag coefficient
 
-			Ft = p*((abs(truewind_speed)*math.cos(beta) - abs(Vt))**2)*(G**2)*truecl*A
+		Ft = p*((abs(truewind_speed)*math.cos(beta) - abs(Vt))**2)*(G**2)*truecl*A
+		# force of tether = air density*(absolute value of windspeed * cosine of beta angle -(absolute value of reel velocity of tether)^2)
+		# * G^2*lift coefficient*surface area of the drone
 
-			power = abs(Ft)*abs(Vt)
+	power = abs(Ft)*abs(Vt) 
 
 	xlist = [power, Ft, Vt]
 
