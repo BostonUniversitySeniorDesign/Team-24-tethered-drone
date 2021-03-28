@@ -22,16 +22,16 @@ if __name__ == "__main__":
 	y_vec = np.zeros(len(x_vec))
 	#print(y_vec)
 	line1 = []
-	A = 10
+	A = 5 # A set to _ meters squared here, A is surface area, based on:  total wingspan of drone * width of wing
 	cll = 0
 	cdd = 0
 
-	default = input("Do you want to run with the default settings? (y/n)")
+	default = input("Do you want to run with the default settings? (y/n) ")
 
 	if default == 'y':
 		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd)
 	elif default == 'n':
-		A = input("Input wing span of drone: ")
+		A = input("Input total surface area of drone: ")
 		cll = input("Input lift coefficient of drone: ")
 		cdd = input("Input drag coefficient of drone: ")
 		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd)
