@@ -2,12 +2,9 @@ def calc(F, V, A, cll, cdd):
 
 	import math
 
-	betafile = open("C:\\FlyJus\\dev\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
-	# put your location of buffer.bin here (each user will have a different file path) but will be in the ardupilot build
+	betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
 
-	datafile = open("C:\\Users\\hboja\\Google Drive\\EC 464\\Team-24-tethered-drone\\nodeOutput.txt", "r")
-	# put your location of nodeOutput.txt here, it should be in the same directory as the directory
-	# that is cloned to your local machine from the github
+	datafile = open("C:\\cygwin_64\\home\\JadenCho\\x-plane_calc\\nodeOutput.txt", "r")
 
 	b = betafile.readline()
 	d = datafile.readlines()
@@ -15,8 +12,8 @@ def calc(F, V, A, cll, cdd):
 	beta = float(b)
 
 	if d == [] or b == []:
-		Ft = F # Ft is the force of the tether
-		Vt = V # Vt is the reel velocity of the tether
+		Ft = F
+		Vt = V
 	else:
 
 		gspeedstrl = d[0]
@@ -59,21 +56,54 @@ def calc(F, V, A, cll, cdd):
 			truecl = cll
 			truecd = cdd
 
-		if truegspeed == 0 or math.cos(beta) == 0: 
+		if truegspeed == 0 or math.cos((beta*math.pi)/180) == 0: 
 			Vt = V
-
 		else: 
-			Vt = truegspeed/math.cos(beta)
+			Vt = truegspeed/math.cos((beta*math.pi)/180)
 
 		p = 100000/(287.058*(trueair_temp + 273.15)) #air density
 
-		G = float(truecl/truecd) #ratio of lift coefficient to drag coefficient
+		G = float(truecl/truecd)
 
-		Ft = p*((abs(truewind_speed)*math.cos(beta) - abs(Vt))**2)*(G**2)*truecl*A
-		# force of tether = air density*(absolute value of windspeed * cosine of beta angle -(absolute value of reel velocity of tether)^2)
-		# * G^2*lift coefficient*surface area of the drone
+		#print("CL: ")
+		#print(truecl)
 
-	power = abs(Ft)*abs(Vt) 
+		#print("CD: ")
+		#print(truecd)
+
+		#print("G: ")
+		#print(G)
+
+		#print("Tether Speed: ")
+		#print(Vt)
+
+		#print("wind Speed: ")
+		#print(truewind_speed)
+
+		#print("Ground Speed: ")
+		#print(truegspeed)
+
+		#print("Air Density: ")
+		#print(p)
+
+		#print("Part of Ft: ")
+		#print(abs(truewind_speed)*math.cos(beta) - abs(truegspeed)**2)
+
+		#print("Beta: ")
+		#print(beta)
+		#print(math.cos((beta*math.pi)/180))
+
+		Fs = abs(truewind_speed)*math.cos((beta*math.pi)/180)
+
+		Fss = Fs - abs(Vt)
+
+		Fss2 = Fss**2
+
+		G2 = G**2
+
+		Ft = 0.5*p*Fss2*G2*truecl*A
+
+	power = abs(Ft)*abs(Vt)
 
 	xlist = [power, Ft, Vt]
 
