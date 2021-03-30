@@ -9,12 +9,12 @@ def calc(F, V, A, cll, cdd):
 	b = betafile.readline()
 	d = datafile.readlines()
 
-	beta = float(b)
-
-	if d == [] or b == []:
+	if d == [] or b == [] or b == '':
 		Ft = F
 		Vt = V
 	else:
+
+		beta = float(b)
 
 		gspeedstrl = d[0]
 		Yvelstrl = d[1]
