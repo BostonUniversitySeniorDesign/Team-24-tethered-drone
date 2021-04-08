@@ -1,20 +1,23 @@
-def calc(F, V, A, cll, cdd):
+def calc(F, V, A, cll, cdd, s1, s2, s3):
 
 	import math
 
-	betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
+	#betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
 
 	datafile = open("C:\\cygwin_64\\home\\JadenCho\\x-plane_calc\\nodeOutput.txt", "r")
 
-	b = betafile.readline()
+	#b = betafile.readline()
 	d = datafile.readlines()
 
-	if d == [] or b == [] or b == '':
+	start = [None] * 3
+
+	if d == []:
 		Ft = F
 		Vt = V
+		start[0] = s1
+		start[1] = s2
+		start[2] = s3
 	else:
-
-		beta = float(b)
 
 		gspeedstrl = d[0]
 		Yvelstrl = d[1]
@@ -24,6 +27,9 @@ def calc(F, V, A, cll, cdd):
 		alphastrl = d[6]
 		air_tempstrl = d[7]
 		wind_speedstrl = d[8]
+		localxstrl = d[14]
+		localystrl = d[15]
+		localzstrl = d[16]
 
 		gspeedstr = gspeedstrl.split(', ')
 		Yvelstr = Yvelstrl.split(', ')
@@ -33,6 +39,9 @@ def calc(F, V, A, cll, cdd):
 		alphastr = alphastrl.split(', ')
 		air_tempstr = air_tempstrl.split(', ')
 		wind_speedstr = wind_speedstrl.split(', ')
+		localxstr = localxstrl.split(', ')
+		localystr = localystrl.split(', ')
+		localzstr = localzstrl.split(', ')
 
 		gspeed = gspeedstr[1].split('\n')
 		Yvel = Yvelstr[1].split('\n')
@@ -42,6 +51,9 @@ def calc(F, V, A, cll, cdd):
 		alpha = alphastr[1].split('\n')
 		air_temp = air_tempstr[1].split('\n')
 		wind_speed = wind_speedstr[1].split('\n')
+		localx = localxstr[1].split('\n')
+		localy = localystr[1].split('\n')
+		localz = localzstr[1].split('\n')
 
 		truegspeed = float(gspeed[0]) 		 #ground speed
 		trueYvel = float(Yvel[0])   		 #upward velocity
@@ -51,6 +63,40 @@ def calc(F, V, A, cll, cdd):
 		truealpha = float(alpha[0])			 #angle of attack
 		trueair_temp = float(air_temp[0])	 #air temp
 		truewind_speed = float(wind_speed[0])#wind speed
+		truelocalx = float(localx[0])		 #x coordinate of drone
+		truelocaly = float(localy[0])		 #y coordinate of drone
+		truelocalz = float(localz[0])		 #z coordinate of drone
+
+		if start[0] == None and start[1] == None and start[2] == None and s1 == 0 and s2 == 0 and s3 ==0: 
+			start[0] = truelocalx
+			start[1] = truelocaly
+			start[2] = truelocalz
+			#print(start)
+		elif start[0] == None and start[1] == None and start[2] == None and s1 != 0 and s2 != 0 and s3 !=0: 
+			start[0] = s1
+			start[1] = s2
+			start[2] = s3
+			#print(start)
+
+		x = abs(start[0]) - abs(truelocalx)
+		y = abs(start[1]) - abs(truelocaly)
+		z = abs(start[2]) - abs(truelocalz)
+
+		if x == 0:
+			x = 1
+
+		if z == 0:
+			z = 1
+
+		x2 = abs(x**2)
+		y2 = abs(y)
+		z2 = abs(z**2)
+
+		xz = math.sqrt(x2 + z2)
+
+		beta_rad = math.atan(y2/xz)
+
+		beta = beta_rad * (180/math.pi)
 
 		if cll != 0 and cdd != 0:
 			truecl = cll
@@ -63,7 +109,16 @@ def calc(F, V, A, cll, cdd):
 
 		p = 100000/(287.058*(trueair_temp + 273.15)) #air density
 
-		G = float(truecl/truecd)
+		if truecd == 0:
+			G = 1
+		else:
+			G = float(truecl/truecd)
+
+		#print("Drone Starting Position: ")
+		#print(start)
+
+		print("Beta: ")
+		print(beta)
 
 		#print("CL: ")
 		#print(truecl)
@@ -105,7 +160,7 @@ def calc(F, V, A, cll, cdd):
 
 	power = abs(Ft)*abs(Vt)
 
-	xlist = [power, Ft, Vt]
+	xlist = [power, Ft, Vt, start[0], start[1], start[2]]
 
 	return xlist
 
