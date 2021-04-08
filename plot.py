@@ -5,7 +5,7 @@ import numpy as np
 # use ggplot style for more sophisticated visuals
 plt.style.use('ggplot')
 
-def live_plotter(x_vec,y1_data,line1,identifier='',pause_time=0.65):
+def live_plotter(x_vec,y1_data,line1,label, name, identifier='',pause_time=0.65):
     if line1==[]:
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
@@ -14,9 +14,9 @@ def live_plotter(x_vec,y1_data,line1,identifier='',pause_time=0.65):
         # create a variable for the line so we can later update it
         line1, = ax.plot(x_vec,y1_data,'-o',alpha=0.8)        
         #update plot label/title
-        plt.ylabel('Power Generation')
+        plt.ylabel(label)
         plt.xlabel('time')
-        plt.title('Power Generation vs Time'.format(identifier))
+        plt.title(name.format(identifier))
         plt.show()
     
     # after the figure, axis, and line are created, we only need to update the y-data
