@@ -5,7 +5,7 @@ import time
 def main(x_vec, y_vec,line1, F, V, A, cll, cdd, s1, s2, s3):
 
 	xlist = calc(F, V, A, cll, cdd, s1, s2, s3)
-	line1 = live_plotter(x_vec, y_vec, line1)
+	line1 = live_plotter(x_vec, y_vec, line1, 'Power (Watts)', 'Drone Power Generation')
 
 	#print(xlist)
 
