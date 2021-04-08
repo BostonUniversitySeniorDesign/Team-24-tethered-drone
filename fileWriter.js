@@ -9,6 +9,8 @@ var ExtPlane = new ExtPlaneJs({
 
 var data = [];
 
+var start= [];
+
 
 ExtPlane.on('loaded', function(){
 
@@ -34,9 +36,15 @@ ExtPlane.on('loaded', function(){
     ExtPlane.client.subscribe('sim/flightmodel/position/alpha');
     ExtPlane.client.subscribe('sim/flightmodel/position/groundspeed');
     ExtPlane.client.subscribe('sim/flightmodel/position/true_airspeed');
-    ExtPlane.client.subscribe('sim/weather/temperature_ambient_c');
-    //ExtPlane.client.subscribe('sim/cockpit2/temperature/outside_air_temp_degc');
+    ExtPlane.client.subscribe('sim/cockpit2/temperature/outside_air_temp_degc');
     ExtPlane.client.subscribe('sim/cockpit2/gauges/indicators/wind_speed_kts');
+    ExtPlane.client.subscribe('sim/flightmodel2/misc/AoA_angle_degrees');
+    ExtPlane.client.subscribe('sim/weather/wind_speed_kt[0]');
+    ExtPlane.client.subscribe('sim/weather/wind_speed_kt[1]');
+    ExtPlane.client.subscribe('sim/weather/wind_speed_kt[2]');
+    ExtPlane.client.subscribe('sim/weather/wind_direction_degt');
+
+
 	
 	// Handle all data-ref changes
 	ExtPlane.on('data-ref', function(data_ref, value){
@@ -47,33 +55,49 @@ ExtPlane.on('loaded', function(){
 		//else
 		if (data_ref == 'sim/flightmodel/position/groundspeed') 	         data[0] = value;
 		if (data_ref == 'sim/flightmodel/position/local_vy') 		         data[1] = value;
-        	if (data_ref == 'sim/flightmodel/forces/fnrml_prop')                 data[2] = value;
+        if (data_ref == 'sim/flightmodel/forces/fnrml_prop')                 data[2] = value;
 		if (data_ref == 'sim/flightmodel/forces/fnrml_aero')                 data[3] = value;
-        	if (data_ref == 'sim/flightmodel/misc/cl_overall')                   data[4] = value;
-        	if (data_ref == 'sim/flightmodel/misc/cd_overall')                   data[5] = value;
-        	if (data_ref == 'sim/flightmodel/position/alpha')                    data[6] = value;
-		if (data_ref == 'sim/weather/temperature_ambient_c')    data[7] = value;
-        	//if (data_ref == 'sim/cockpit2/temperature/outside_air_temp_degc')    data[7] = value;
-        	if (data_ref == 'sim/cockpit2/gauges/indicators/wind_speed_kts')     data[8] = value;
+        if (data_ref == 'sim/flightmodel/misc/cl_overall')                   data[4] = value;
+        if (data_ref == 'sim/flightmodel/misc/cd_overall')                   data[5] = value;
+        if (data_ref == 'sim/flightmodel/position/alpha')                    data[6] = value;
+        if (data_ref == 'sim/cockpit2/temperature/outside_air_temp_degc')    data[7] = value;
+        if (data_ref == 'sim/cockpit2/gauges/indicators/wind_speed_kts')     data[8] = value;
+        if (data_ref == 'sim/flightmodel2/misc/AoA_angle_degrees')           data[9] = value;
+        if (data_ref == 'sim/weather/wind_speed_kt[0]')                      data[10] = value;
+        if (data_ref == 'sim/weather/wind_speed_kt[1]')                      data[11] = value;
+        if (data_ref == 'sim/weather/wind_speed_kt[2]')                      data[12] = value;
+        if (data_ref == 'sim/weather/wind_direction_degt')                   data[13] = value;
+        if (data_ref == 'sim/flightmodel/position/local_x')                  data[14] = value;
+        if (data_ref == 'sim/flightmodel/position/local_y')                  data[15] = value;
+        if (data_ref == 'sim/flightmodel/position/local_z')                  data[16] = value;
 
 		fs.writeFile('nodeOutput.txt', 
 		"sim/flightmodel/position/groundspeed, " + data[0] + "\n" +
 		"sim/flightmodel/position/local_vy, " + data[1] + "\n" + 
-        	"sim/flightmodel/forces/fnrml_prop, " + data[2] + "\n" +
-        	"sim/flightmodel/forces/fnrml_aero, " + data[3] + "\n" + 
-        	"sim/flightmodel/misc/cl_overall, " + data[4] + "\n" + 
-        	"sim/flightmodel/misc/cd_overall, " + data[5] + "\n" + 
-        	"sim/flightmodel/position/alpha, " + data[6] + "\n" +
-		"sim/weather/temperature_ambient_c, " + data[7] + "\n" +
-        	//"sim/cockpit2/temperature/outside_air_temp_degc, " + data[7] + "\n" +
-        	"sim/cockpit2/gauges/indicators/wind_speed_kts, " + data[8] + "\n"
+        "sim/flightmodel/forces/fnrml_prop, " + data[2] + "\n" +
+        "sim/flightmodel/forces/fnrml_aero, " + data[3] + "\n" + 
+        "sim/flightmodel/misc/cl_overall, " + data[4] + "\n" + 
+        "sim/flightmodel/misc/cd_overall, " + data[5] + "\n" + 
+        "sim/flightmodel/position/alpha, " + data[6] + "\n" +
+        "sim/cockpit2/temperature/outside_air_temp_degc, " + data[7] + "\n" +
+        "sim/cockpit2/gauges/indicators/wind_speed_kts, " + data[8] + "\n" +
+        "sim/flightmodel2/misc/AoA_angle_degrees, " + data[9] + "\n" +
+        "sim/weather/wind_speed_kt[0], " + data[10] + "\n" +
+        "sim/weather/wind_speed_kt[1], " + data[11] + "\n" +
+        "sim/weather/wind_speed_kt[2], " + data[12] + "\n" +
+        "sim/weather/wind_direction_degt, " + data[13] + "\n" + 
+        "sim/flightmodel/position/local_x, " + data[14] + "\n" + 
+        "sim/flightmodel/position/local_y, " + data[15] + "\n" + 
+        "sim/flightmodel/position/local_z, " + data[16] + "\n" 
+
+
+
+
 
 		, function (err) {
   			if (err) return console.log(err);
   				console.log('file complete\n');
+                console.log()
 			});
-
 	});
-
-	
 });
