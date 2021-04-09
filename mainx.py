@@ -1,10 +1,11 @@
 from calculate import *
 from plot import *
+from justplots import *
 import sys
 import time
-def main(x_vec, y_vec,line1, F, V, A, cll, cdd, s1, s2, s3):
+def main(x_vec, y_vec, line1, F, V, A, cll, cdd, s1, s2, s3):
 
-	xlist = calc(F, V, A, cll, cdd, s1, s2, s3)
+	xlist = calc(F, V, A, cll, cdd, s1, s2, s3, 0, 0, 0, 0)
 	line1 = live_plotter(x_vec, y_vec, line1, 'Power (Watts)', 'Drone Power Generation')
 
 	#print(xlist)
@@ -25,6 +26,7 @@ if __name__ == "__main__":
 	y_vec = np.zeros(len(x_vec))
 	#print(y_vec)
 	line1 = []
+	
 	A = 1.5 #m^2
 	cll = 0
 	cdd = 0
@@ -47,8 +49,11 @@ if __name__ == "__main__":
 	while True:
 		try:
 			y_vec[-1] = plist[1][0]
+
 			plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2], A, cll, cdd, plist[1][3], plist[1][4], plist[1][5])
+
 			y_vec = np.append(y_vec[1:],0.0)
+
 			avg_power.append(plist[1][0])
 
 			if len(avg_power) == (sys.maxsize - 10):
@@ -65,9 +70,9 @@ if __name__ == "__main__":
 
 			print("\n")
 			print("======================================")
-			print("Total Power generated so far: " + str(totalpow) + "Watts")
-			print("Average Power generated so far: " + str(avgpow) + "Watts")
-			print("Total Energy generated so far: " + str(totalenergy) + "Joules")
+			print("Total Power generated so far: " + str(totalpow) + " Watts")
+			print("Average Power generated so far: " + str(avgpow) + " Watts")
+			print("Total Energy generated so far: " + str(totalenergy) + " Joules")
 			print("======================================")
 			print("\n")
 
@@ -84,6 +89,5 @@ if __name__ == "__main__":
 				print("Invalid selection")
 				print("Continuing with program...")
 				print("\n")
-				print
 				continue
 
