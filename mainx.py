@@ -12,7 +12,10 @@ def main(x_vec, y_vec, line1, F, V, A, cll, cdd, s1, s2, s3):
 
 	plist = [line1, xlist]
 
-	print("Power is: ", xlist[0])
+	input1=xlist[0]/1000
+	formatted_string_1 = "{:.0f}".format(input1)
+	float_value_pow=float(formatted_string_1)
+	print("Power is: ", float_value_pow, " kW")
 	#print("Force is: ", xlist[1])
 	#print("Velocity is: ", xlist[2])
 
@@ -65,20 +68,41 @@ if __name__ == "__main__":
 		except KeyboardInterrupt:
 			elapsed = time.time() - start
 			totalpow = sum(avg_power)
+			totalpow_kW = totalpow/1000
+
+			formatted_string_total_pow= "{:.2f}".format(totalpow_kW)
+			float_value_total_pow=float(formatted_string_total_pow)
+
+
 			avgpow = totalpow/len(avg_power)
 			totalenergy = totalpow*elapsed
 
+			avgpow_kW = avgpow/1000
+			formatted_string = "{:.2f}".format(avgpow_kW)
+			float_value_avg_pow=float(formatted_string)
+
+			totalenergy = totalpow*elapsed*2.77778**-7 # value in kWh
+
+			formatted_string_total_energy = "{:.2f}".format(totalenergy)
+			float_value_total_energy = float(formatted_string_total_energy)
+
+
+
 			print("\n")
 			print("======================================")
-			print("Total Power generated so far: " + str(totalpow) + " Watts")
-			print("Average Power generated so far: " + str(avgpow) + " Watts")
-			print("Total Energy generated so far: " + str(totalenergy) + " Joules")
+			print("Total Power generated so far: " + str(float_value_total_pow) + " kW")
+			print("Average Power generated so far: " + str(float_value_avg_pow) + " kW")
+			print("Total Energy generated so far: " + str(totalenergy) + " kWh")
 			print("======================================")
 			print("\n")
 
 			kbi = input("Would you like to continue? (y/n)\n")
 
 			if kbi == 'y':
+				avg_power.clear()#clear list for avg power
+				#clear list for total power
+				#clear list for total energy
+
 				print("Continuing with program...")
 				print("\n")
 				continue
