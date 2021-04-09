@@ -4,7 +4,7 @@ def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 
 	#betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
 
-	datafile = open("C:\\cygwin_64\\home\\JadenCho\\x-plane_calc\\nodeOutput.txt", "r")
+	datafile = open("C:\\Users\\hboja\\Google Drive\\EC 464\\Team-24-tethered-drone\\nodeOutput.txt", "r")
 
 	#b = betafile.readline()
 	d = datafile.readlines()
@@ -174,7 +174,7 @@ def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 
 		Ft = 0.5*p*Fss2*G2*truecl*A
 
-	power = abs(Ft)*abs(Vt)
+	power = (abs(Ft)*abs(Vt))/1000 #change power output here to kW
 
 	xlist = [power, Ft, Vt, start[0], start[1], start[2], truewindx, truewindy, truewindz, truewind_speed]
 

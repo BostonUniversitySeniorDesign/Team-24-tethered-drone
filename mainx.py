@@ -6,13 +6,13 @@ import time
 def main(x_vec, y_vec, line1, F, V, A, cll, cdd, s1, s2, s3):
 
 	xlist = calc(F, V, A, cll, cdd, s1, s2, s3, 0, 0, 0, 0)
-	line1 = live_plotter(x_vec, y_vec, line1, 'Power (Watts)', 'Drone Power Generation')
+	line1 = live_plotter(x_vec, y_vec, line1, 'Power (KiloWatts)', 'Drone Power Generation')
 
 	#print(xlist)
 
 	plist = [line1, xlist]
 
-	input1=xlist[0]/1000
+	input1=xlist[0]
 	formatted_string_1 = "{:.0f}".format(input1)
 	float_value_pow=float(formatted_string_1)
 	print("Power is: ", float_value_pow, " kW")
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 		except KeyboardInterrupt:
 			elapsed = time.time() - start
 			totalpow = sum(avg_power)
-			totalpow_kW = totalpow/1000
+			totalpow_kW = totalpow
 
 			formatted_string_total_pow= "{:.2f}".format(totalpow_kW)
 			float_value_total_pow=float(formatted_string_total_pow)
@@ -77,11 +77,11 @@ if __name__ == "__main__":
 			avgpow = totalpow/len(avg_power)
 			totalenergy = totalpow*elapsed
 
-			avgpow_kW = avgpow/1000
+			avgpow_kW = avgpow
 			formatted_string = "{:.2f}".format(avgpow_kW)
 			float_value_avg_pow=float(formatted_string)
 
-			totalenergy = totalpow*elapsed*2.77778**-7 # value in kWh
+			totalenergy = totalpow*1000*elapsed*2.77778*10**-7 # totalpow value in kW, convert to W then Joules then kWh
 
 			formatted_string_total_energy = "{:.2f}".format(totalenergy)
 			float_value_total_energy = float(formatted_string_total_energy)
