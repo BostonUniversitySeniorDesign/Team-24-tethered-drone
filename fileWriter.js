@@ -43,6 +43,9 @@ ExtPlane.on('loaded', function(){
     ExtPlane.client.subscribe('sim/weather/wind_speed_kt[1]');
     ExtPlane.client.subscribe('sim/weather/wind_speed_kt[2]');
     ExtPlane.client.subscribe('sim/weather/wind_direction_degt');
+    ExtPlane.client.subscribe('sim/weather/wind_now_x_msc');
+    ExtPlane.client.subscribe('sim/weather/wind_now_y_msc');
+    ExtPlane.client.subscribe('sim/weather/wind_now_z_msc');
 
 
 	
@@ -70,6 +73,9 @@ ExtPlane.on('loaded', function(){
         if (data_ref == 'sim/flightmodel/position/local_x')                  data[14] = value;
         if (data_ref == 'sim/flightmodel/position/local_y')                  data[15] = value;
         if (data_ref == 'sim/flightmodel/position/local_z')                  data[16] = value;
+        if (data_ref == 'sim/weather/wind_now_x_msc')                        data[17] = value;
+        if (data_ref == 'sim/weather/wind_now_y_msc')                        data[18] = value;
+        if (data_ref == 'sim/weather/wind_now_z_msc')                        data[19] = value;
 
 		fs.writeFile('nodeOutput.txt', 
 		"sim/flightmodel/position/groundspeed, " + data[0] + "\n" +
@@ -88,7 +94,10 @@ ExtPlane.on('loaded', function(){
         "sim/weather/wind_direction_degt, " + data[13] + "\n" + 
         "sim/flightmodel/position/local_x, " + data[14] + "\n" + 
         "sim/flightmodel/position/local_y, " + data[15] + "\n" + 
-        "sim/flightmodel/position/local_z, " + data[16] + "\n" 
+        "sim/flightmodel/position/local_z, " + data[16] + "\n" +
+        "sim/weather/wind_now_x_msc, " + data[17] + "\n" +
+        "sim/weather/wind_now_y_msc, " + data[18] + "\n" +
+        "sim/weather/wind_now_z_msc, " + data[19] + "\n"
 
 
 
@@ -97,7 +106,6 @@ ExtPlane.on('loaded', function(){
 		, function (err) {
   			if (err) return console.log(err);
   				console.log('file complete\n');
-                console.log()
 			});
 	});
 });
