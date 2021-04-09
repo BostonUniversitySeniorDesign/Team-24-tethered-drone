@@ -1,4 +1,4 @@
-def calc(F, V, A, cll, cdd, s1, s2, s3):
+def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 
 	import math
 
@@ -17,6 +17,10 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		start[0] = s1
 		start[1] = s2
 		start[2] = s3
+		truewindx = wx
+		truewindy = wy
+		truewindz = wz
+		truewind_speed = wt
 	else:
 
 		gspeedstrl = d[0]
@@ -30,6 +34,9 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		localxstrl = d[14]
 		localystrl = d[15]
 		localzstrl = d[16]
+		windxstrl = d[17]
+		windystrl = d[18]
+		windzstrl = d[19]
 
 		gspeedstr = gspeedstrl.split(', ')
 		Yvelstr = Yvelstrl.split(', ')
@@ -42,6 +49,9 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		localxstr = localxstrl.split(', ')
 		localystr = localystrl.split(', ')
 		localzstr = localzstrl.split(', ')
+		windxstr = windxstrl.split(', ')
+		windystr = windystrl.split(', ')
+		windzstr = windzstrl.split(', ')
 
 		gspeed = gspeedstr[1].split('\n')
 		Yvel = Yvelstr[1].split('\n')
@@ -54,6 +64,9 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		localx = localxstr[1].split('\n')
 		localy = localystr[1].split('\n')
 		localz = localzstr[1].split('\n')
+		windx = windxstr[1].split('\n')
+		windy = windystr[1].split('\n')
+		windz = windzstr[1].split('\n')
 
 		truegspeed = float(gspeed[0]) 		 #ground speed
 		trueYvel = float(Yvel[0])   		 #upward velocity
@@ -66,6 +79,9 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		truelocalx = float(localx[0])		 #x coordinate of drone
 		truelocaly = float(localy[0])		 #y coordinate of drone
 		truelocalz = float(localz[0])		 #z coordinate of drone
+		truewindx = float(windx[0])			 #Wind velocity, x direction
+		truewindy = float(windy[0])			 #Wind velocity, y direction
+		truewindz = float(windz[0])			 #Wind velocity, z direction
 
 		if start[0] == None and start[1] == None and start[2] == None and s1 == 0 and s2 == 0 and s3 ==0: 
 			start[0] = truelocalx
@@ -160,7 +176,7 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 
 	power = abs(Ft)*abs(Vt)
 
-	xlist = [power, Ft, Vt, start[0], start[1], start[2]]
+	xlist = [power, Ft, Vt, start[0], start[1], start[2], truewindx, truewindy, truewindz, truewind_speed]
 
 	return xlist
 
