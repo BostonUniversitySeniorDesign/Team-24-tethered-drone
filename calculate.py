@@ -117,8 +117,8 @@ def calc(F, V, A, cll, cdd, s1, s2, s3):
 		#print("Drone Starting Position: ")
 		#print(start)
 
-		print("Beta: ")
-		print(beta)
+		#print("Beta: ")
+		#print(beta)
 
 		#print("CL: ")
 		#print(truecl)
