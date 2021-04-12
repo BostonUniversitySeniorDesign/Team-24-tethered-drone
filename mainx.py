@@ -3,31 +3,30 @@ from plot import *
 from justplots import *
 import sys
 import time
-def main(x_vec, y_vec, line1, F, V, A, cll, cdd, s1, s2, s3):
+def main(x_vector, y_vector, line1, F, V, A, cll, cdd, s1, s2, s3):
 
-	xlist = calc(F, V, A, cll, cdd, s1, s2, s3, 0, 0, 0, 0)
-	line1 = live_plotter(x_vec, y_vec, line1, 'Power (KiloWatts)', 'Drone Power Generation')
+	returned_array_calculate_drone_power = calculate_drone_power(F, V, A, cll, cdd, s1, s2, s3, 0, 0, 0, 0)
+	line1 = live_plotter(x_vector, y_vector, line1, 'Power (KiloWatts)', 'Drone Power Generation')
 
-	#print(xlist)
+	
 
-	plist = [line1, xlist]
+	plist = [line1, returned_array_calculate_drone_power]
 
-	input1=xlist[0]
+	input1=returned_array_calculate_drone_power[0]
 	formatted_string_1 = "{:.0f}".format(input1)
-	float_value_pow=float(formatted_string_1)
-	print("Power is: ", float_value_pow, " kW")
-	#print("Force is: ", xlist[1])
-	#print("Velocity is: ", xlist[2])
+	float_value_power=float(formatted_string_1)
+	print("Power is: ", float_value_power, " kW")
+	
 
 	return plist
 
 if __name__ == "__main__":
 	start = time.time()
 	size = 5
-	x_vec = np.linspace(0,1,size+1)[0:-1]
-	#print(x_vec)
-	y_vec = np.zeros(len(x_vec))
-	#print(y_vec)
+	x_vector = np.linspace(0,1,size+1)[0:-1]
+	#print(x_vector)
+	y_vector = np.zeros(len(x_vector))
+	#print(y_vector)
 	line1 = []
 	
 	A = 1.5 #m^2
@@ -38,24 +37,24 @@ if __name__ == "__main__":
 	default = input("Do you want to run with the default settings? (y/n) \n")
 
 	if default == 'y':
-		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd, 0, 0, 0)
+		plist = main(x_vector, y_vector, line1, 0, 0, A, cll, cdd, 0, 0, 0)
 	elif default == 'n':
 		A = input("Input wing span of drone: ")
 		cll = input("Input lift coefficient of drone: ")
 		cdd = input("Input drag coefficient of drone: ")
-		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd, 0, 0, 0)
+		plist = main(x_vector, y_vector, line1, 0, 0, A, cll, cdd, 0, 0, 0)
 	else:
 		print("Invalid selection")
 		print("Proceeding with default settings...")
-		plist = main(x_vec, y_vec, line1, 0, 0, A, cll, cdd, 0, 0, 0)
+		plist = main(x_vector, y_vector, line1, 0, 0, A, cll, cdd, 0, 0, 0)
 
 	while True:
 		try:
-			y_vec[-1] = plist[1][0]
+			y_vector[-1] = plist[1][0]
 
-			plist = main(x_vec, y_vec, plist[0], plist[1][1], plist[1][2], A, cll, cdd, plist[1][3], plist[1][4], plist[1][5])
+			plist = main(x_vector, y_vector, plist[0], plist[1][1], plist[1][2], A, cll, cdd, plist[1][3], plist[1][4], plist[1][5])
 
-			y_vec = np.append(y_vec[1:],0.0)
+			y_vector = np.append(y_vector[1:],0.0)
 
 			avg_power.append(plist[1][0])
 

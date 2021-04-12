@@ -54,12 +54,12 @@ if __name__ == "__main__":
 
     if wind_on == 'y':
 
-        xlist = calc(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        xlist = calculate_drone_power(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         while True:
             try:
                 
-                xlist = calc(0, 0, 0, 0, 0, 0, 0, 0, xlist[6], xlist[7], xlist[8], xlist[9])
+                xlist = calculate_drone_power(0, 0, 0, 0, 0, 0, 0, 0, xlist[6], xlist[7], xlist[8], xlist[9])
 
                 y_vec1[-1] = xlist[6]
                 y_vec2[-1] = xlist[7]

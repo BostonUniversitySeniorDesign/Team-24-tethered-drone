@@ -1,19 +1,19 @@
-def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
+def calculate_drone_power(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 
 	import math
 
-	#betafile = open("C:\\cygwin_64\\home\\JadenCho\\ardupilot\\build\\sitl\\bin\\buffer.bin", "r")
+	
 
 	datafile = open("C:\\Users\\hboja\\Google Drive\\EC 464\\Team-24-tethered-drone\\nodeOutput.txt", "r")
 
-	#b = betafile.readline()
-	d = datafile.readlines()
+
+	data_written_to_txt_file_from_node_js = datafile.readlines()
 
 	start = [None] * 3
 
-	if d == []:
-		Ft = F
-		Vt = V
+	if data_written_to_txt_file_from_node_js == []:
+		force_of_tether = F
+		velocity_of_tether = V
 		start[0] = s1
 		start[1] = s2
 		start[2] = s3
@@ -23,20 +23,20 @@ def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 		truewind_speed = wt
 	else:
 
-		gspeedstrl = d[0]
-		Yvelstrl = d[1]
-		force_upstrl = d[3]
-		clstrl = d[4]
-		cdstrl = d[5]
-		alphastrl = d[6]
-		air_tempstrl = d[7]
-		wind_speedstrl = d[8]
-		localxstrl = d[14]
-		localystrl = d[15]
-		localzstrl = d[16]
-		windxstrl = d[17]
-		windystrl = d[18]
-		windzstrl = d[19]
+		gspeedstrl =       data_written_to_txt_file_from_node_js[0]
+		Yvelstrl =         data_written_to_txt_file_from_node_js[1]
+		force_upstrl =     data_written_to_txt_file_from_node_js[3]
+		clstrl =           data_written_to_txt_file_from_node_js[4]
+		cdstrl =           data_written_to_txt_file_from_node_js[5]
+		alphastrl =        data_written_to_txt_file_from_node_js[6]
+		air_tempstrl =     data_written_to_txt_file_from_node_js[7]
+		wind_speedstrl =   data_written_to_txt_file_from_node_js[8]
+		localxstrl =       data_written_to_txt_file_from_node_js[14]
+		localystrl =       data_written_to_txt_file_from_node_js[15]
+		localzstrl =       data_written_to_txt_file_from_node_js[16]
+		windxstrl =        data_written_to_txt_file_from_node_js[17]
+		windystrl =        data_written_to_txt_file_from_node_js[18]
+		windzstrl =        data_written_to_txt_file_from_node_js[19]
 
 		gspeedstr = gspeedstrl.split(', ')
 		Yvelstr = Yvelstrl.split(', ')
@@ -68,7 +68,7 @@ def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 		windy = windystr[1].split('\n')
 		windz = windzstr[1].split('\n')
 
-		truegspeed = float(gspeed[0]) 		 #ground speed
+		true_ground_speed = float(gspeed[0]) 
 		trueYvel = float(Yvel[0])   		 #upward velocity
 		trueforce_up = float(force_up[0])	 #force normal to wings
 		truecl = float(cl[0])				 #lift coef
@@ -118,66 +118,31 @@ def calc(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 			truecl = cll
 			truecd = cdd
 
-		if truegspeed == 0 or math.cos((beta*math.pi)/180) == 0: 
-			Vt = V
+		if true_ground_speed == 0 or math.cos((beta*math.pi)/180) == 0: 
+			velocity_of_tether = V
 		else: 
-			Vt = truegspeed/math.cos((beta*math.pi)/180)
+			velocity_of_tether = true_ground_speed/math.cos((beta*math.pi)/180)
 
-		p = 100000/(287.058*(trueair_temp + 273.15)) #air density
+		air_density = 100000/(287.058*(trueair_temp + 273.15)) #air density
 
 		if truecd == 0:
 			G = 1
 		else:
 			G = float(truecl/truecd)
 
-		#print("Drone Starting Position: ")
-		#print(start)
-
-		#print("Beta: ")
-		#print(beta)
-
-		#print("CL: ")
-		#print(truecl)
-
-		#print("CD: ")
-		#print(truecd)
-
-		#print("G: ")
-		#print(G)
-
-		#print("Tether Speed: ")
-		#print(Vt)
-
-		#print("wind Speed: ")
-		#print(truewind_speed)
-
-		#print("Ground Speed: ")
-		#print(truegspeed)
-
-		#print("Air Density: ")
-		#print(p)
-
-		#print("Part of Ft: ")
-		#print(abs(truewind_speed)*math.cos(beta) - abs(truegspeed)**2)
-
-		#print("Beta: ")
-		#print(beta)
-		#print(math.cos((beta*math.pi)/180))
 
 		Fs = abs(truewind_speed)*math.cos((beta*math.pi)/180)
 
-		Fss = Fs - abs(Vt)
+		Fss = Fs - abs(velocity_of_tether)
 
 		Fss2 = Fss**2
 
 		G2 = G**2
 
-		Ft = 0.5*p*Fss2*G2*truecl*A
+		force_of_tether = 0.5*air_density*Fss2*G2*truecl*A
 
-	power = (abs(Ft)*abs(Vt))/1000 #change power output here to kW
+	power_in_kW = (abs(force_of_tether)*abs(velocity_of_tether))/1000 
 
-	xlist = [power, Ft, Vt, start[0], start[1], start[2], truewindx, truewindy, truewindz, truewind_speed]
-
-	return xlist
+	return  [power_in_kW, force_of_tether, velocity_of_tether, start[0], start[1], start[2], truewindx, truewindy, truewindz, truewind_speed] 
 
 
