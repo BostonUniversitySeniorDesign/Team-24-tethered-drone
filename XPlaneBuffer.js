@@ -105,7 +105,7 @@ ExtPlane.on('loaded', function(){
 
 		, function (err) {
   			if (err) return console.log(err);
-  				console.log('file complete\n');
+  				console.log('File Write Complete\n');
 			});
 	});
 });

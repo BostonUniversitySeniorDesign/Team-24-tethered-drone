@@ -1,6 +1,5 @@
-from calculate import *
-from plot import *
-from justplots import *
+from CalculatePower import *
+from DynamicPlotting import *
 import sys
 import time
 def main(x_vector, y_vector, line1, F, V, A, cll, cdd, s1, s2, s3):

@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from calculate import *
+from CalculatePower import *
 
 # use ggplot style for more sophisticated visuals
 plt.style.use('ggplot')
