@@ -131,7 +131,7 @@ def calculate_drone_power(F, V, A, cll, cdd, s1, s2, s3, wx, wy, wz, wt):
 			G = float(truecl/truecd)
 
 
-		Fs = abs(truewind_speed)*math.cos((beta*math.pi)/180)
+		Fs = abs(truewind_speed/1.944)*math.cos((beta*math.pi)/180)
 
 		Fss = Fs - abs(velocity_of_tether)
 
