@@ -33,7 +33,7 @@ The speed at which it is spun is based on the reel out speed of the line.
 Therefore, by multiplying the tension force of the tether and the reel out speed of that same tether, the power generated can be found.
 So the Python backend performs these calculations based on the datarefs that X-Plane outputs.
 Finally, the value of power is dynamically graphed on a graph in real time, and printed on a command prompt. 
-In other words, as the power generation changes based on a large set of second-by-second changing variables like wind speed, tether force, pitch/roll angles, etc. These changes will be shown in real time on the plot. 
+In other words, as the power generation fluctuates based on a set of parameters changing second by second (like wind speed, drone speed, pitch/roll angles, etc). These changes will be shown in real time on the plot. 
 
 
 Currently, this project has 2 modes of operations: Manual and Automatic.
