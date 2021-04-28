@@ -34,7 +34,6 @@ So the Python backend performs these calculations based on the datarefs that X-P
 Finally, the value of power is dynamically graphed on a graph in real time.
 In other words, as the power generation varies based on the various changing factors, the change will be shown in real time on the plot. 
 
-### Possible Issues
 
 Currently, this project has 2 modes of operations: Manual and Automatic.
 
@@ -57,22 +56,24 @@ The automatic mode has a script control and fly the drone in the simulation.
 5. Select desired flight pattern in Mission Planner
 6. Follow prompts on resulting command
 7. Hit ctrl+c on command prompt running XPlaneAddOn.py (when desired)
-	
+
+### Possible Issues
+
 In the automatic mode, the script that controls the drone is ardupilot.
 Ardupilot is an open source code base created for controlling drones, copters, rc planes, etc.
-However, as stated above, the ardupilot code base is full of bugs that are very difficult to find. 
-A specific example is a floating point error with the ardupilot code that could occur at seemingly any point during the simulation. 
-Another issue that may arise is even if the ardupilot build works one day, it could not work the next.
-Unfortunately, the reason for this is not known. 
-Even after extensive testing and debugging, creating a custom build of an out-of-box version of Ardupilot could work. This build 
-would replace the ArduPilotBuild.exe in our repository. The github for ardupilot is: https://github.com/ArduPilot/ardupilot. 
+However, as stated above, the ardupilot code base is full of bugs that are very difficult to find. Therefore, the ardupilot build might work one day, but not the next.
+Unfortunately, the reason for this is not known.
+
+A second error our team found  is a floating point error with the ardupilot code that could occur at seemingly any point during the simulation. After extensive testing and debugging, creating a custom build of the out-of-box version of Ardupilot could work. This build 
+would replace the ArduPilotBuild.exe file in our repository. The github for ardupilot is: https://github.com/ArduPilot/ardupilot. 
 
 A third issue that has occurred for some users causes the XPlaneBuffer.js file to throw an error saying "doesn't recognize extplanejs". The solution here would be to go to the directory of XPlaneBuffer.js on a command prompt and type "npm install extplanejs". 
-A fourth issue that may arise is that .bat files may not be compatible with certain local machines.
+
+A fourth error that may arise is that .bat files may not be compatible with certain local machines.
 If that is the case, the solution would be to run the command line prompts found in the .bat files separately. Below, there's an explanation of how to solve this error. 
 
 
-**Manual Mode:**
+**Solve #4 error: Manual Mode:**
 1. Run X-Plane
 2. Open 3 different Command Prompt Windows – the 3 following lines get their own Command Prompt Window - PATH\TO\FILE\LOCATION should reflect the file path where the 	github repo was cloned
 	- start cmd.exe /k "cd PATH\TO\FILE\LOCATION && node XPlaneBuffer.js"
@@ -82,7 +83,7 @@ If that is the case, the solution would be to run the command line prompts found
 4. Manually fly the drone simulation with either mouse or joystick
 5. Hit ctrl+c on command prompt running XPlaneAddOn.py (when desired)
 	
-**Automatic Mode:**
+**Solve #4 error Automatic Mode:**
 1. Run X-Plane
 2. Open 3 different Command Prompt Windows – the 5 following lines get their own Command Prompt Window - PATH\TO\FILE\LOCATION should reflect the file path where the 		github repo was cloned
 	- start cmd.exe /k "cd PATH\TO\FILE\LOCATION && node XPlaneBuffer.js"
