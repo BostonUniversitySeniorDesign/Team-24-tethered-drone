@@ -21,7 +21,7 @@ For example, ardupilot in C++ can access and even control X-Plane.
 However, this code repository is full of bugs that are difficult to pinpoint and correct.
 That is why the Javascript extension was chosen.
 
-After accessing the necessary datarefs, they are sent to the Python backend. 
+After accessing the necessary datarefs, they are written to a buffer file then read by the Python backend. 
 The Python backend then manipulates the datarefs into float variables that can be used in mathematical operations.
 The calculations performed are based on the equations given by the client.
 The innovative wind energy source that FlyJus is developing takes advantage of high altitude winds and the controllability of drones. 
@@ -32,8 +32,8 @@ As the drone pulls on the tether line, the tension force of the line spins the m
 The speed at which it is spun is based on the reel out speed of the line.
 Therefore, by multiplying the tension force of the tether and the reel out speed of that same tether, the power generated can be found.
 So the Python backend performs these calculations based on the datarefs that X-Plane outputs.
-Finally, the value of power is dynamically graphed on a graph in real time.
-In other words, as the power generation varies based on the various changing factors, the change will be shown in real time on the plot. 
+Finally, the value of power is dynamically graphed on a graph in real time, and printed on a command prompt. 
+In other words, as the power generation changes based on a large set of second-by-second changing variables like wind speed, tether force, pitch/roll angles, etc. These changes will be shown in real time on the plot. 
 
 
 Currently, this project has 2 modes of operations: Manual and Automatic.
@@ -66,7 +66,7 @@ However, as stated above, the ardupilot code base is full of bugs that are very 
 Unfortunately, the reason for this is not known.
 
 A second error our team found  is a floating point error with the ardupilot code that could occur at seemingly any point during the simulation. After extensive testing and debugging, creating a custom build of the out-of-box version of Ardupilot could work. This build 
-would replace the ArduPilotBuild.exe file in our repository.[ArduPilot github](https://github.com/ArduPilot/ardupilot).
+would replace the ArduPilotBuild.exe file in our repository. See [ArduPilot github](https://github.com/ArduPilot/ardupilot) if necessary. 
 
 A third issue that has occurred for some users causes the XPlaneBuffer.js file to throw an error saying "doesn't recognize extplanejs". The solution here would be to go to the directory of XPlaneBuffer.js on a command prompt and type "npm install extplanejs". 
 
