@@ -17,6 +17,7 @@ X-Plane has the following system requirements:
 - DirectX: Version 11
 - Storage: 20 GB available space
 - Sound Card: Default
+- Admin permissions to change environment variables (may require a non-work computer)
 
 **Recommended Requirements**
 - Requires a 64-bit processor and operating system
@@ -28,5 +29,6 @@ X-Plane has the following system requirements:
 - Network: Broadband Internet connection
 - Storage: 65 GB available space
 - Sound Card: Default
+- Admin permissions to change environment variables (may require a non-work computer)
 
 Please note that the disk requirements are based on how many world scenery areas are downloaded. Minimum with one scenery area is 20 GB .
