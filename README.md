@@ -4,7 +4,7 @@
 
 ### Project Outline
 
-This program was created to run alongside FlyJus’ new and innovative wind energy source. 
+This program was created to run alongside FlyJus’ new and innovative wind energy source: [FlyJus](https://forums.ni.com/t5/Power-Electronics-Development/Electric-Vehicle-Tethered-Wind-Turbine-Electricity-Generator/td-p/4001147?profile.language=en)
 However, as of the time when this document was written, the energy source was still in development.
 Therefore, this project was developed to run with a simulation called X-Plane.
 X-Plane is a program similar to that of a flight simulator.
