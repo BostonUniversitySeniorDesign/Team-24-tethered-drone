@@ -48,6 +48,7 @@ The manual mode, as the name suggests, has the user fly the drone simulation man
 5. Hit ctrl+c on command prompt running XPlaneAddOn.py (when desired)
 
 The automatic mode has a script control and fly the drone in the simulation.
+
 **Automatic Mode**
 1. Run X-Plane
 2. Execute the RunXPlaneAddOn_ManualMode.bat file
@@ -102,7 +103,7 @@ Currently, the program has met the Minimum Viable Product set out by the client.
 
 However, like all projects, there is still plenty that could be added on to it.
 A potential addition to the program could be to add a control system.
-As of now, this project is an analysis tool that can be used alongside the energy system
+As of now, this project is an analysis tool that can be used alongside the energy system.
 But if a control system were to be added to it, the program would then be able to analyze and then make the necessary changes to the flight path to maximize the power output.
 This control system would have to take into account factors such as the weather, the wind, current pitch and roll, etc.
 It would also need a measure on how to change the above parameters to maximize the output
