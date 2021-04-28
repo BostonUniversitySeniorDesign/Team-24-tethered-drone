@@ -12,7 +12,7 @@ However, unlike normal simulators, X-Plane has the capabilities of sending data 
 This project takes advantage of this in order to analyze the simulation in real time.
 This is done through a Javascript extension called ExtPlane.
 Parameter variables from X-Plane are accessed as datarefs.
-The complete list of X-Plane datarefs can be found HERE.
+The complete list of X-Plane datarefs can be found [here](https://developer.x-plane.com/datarefs/).
 Datarefs from X-Plane can be accessed through ExtPlane and can be manipulated.
 
 Note that there are other extensions and languages that can access X-Plane through UDP.
