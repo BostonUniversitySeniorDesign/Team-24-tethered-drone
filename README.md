@@ -45,6 +45,7 @@ The manual mode, as the name suggests, has the user fly the drone simulation man
 2. Execute the RunXPlaneAddOn_ManualMode.bat file
 3. Follow prompts on resulting command
 4. Manually fly the drone simulation with either mouse or joystick
+5. Hit ctrl+c on python file command prompt as necessary
 
 The automatic mode has a script control and fly the drone in the simulation.
 **Automatic Mode**
@@ -54,6 +55,7 @@ The automatic mode has a script control and fly the drone in the simulation.
 4. Arm the drone in Mission Planner
 5. Select desired flight pattern in Mission Planner
 6. Follow prompts on resulting command
+7. Hit ctrl+c on python file command prompt as necessary
 	
 In the automatic mode, the script that controls the drone is ardupilot.
 Ardupilot is an open source code base created for controlling drones, copters, rc planes, etc.
