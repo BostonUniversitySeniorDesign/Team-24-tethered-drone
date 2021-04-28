@@ -66,7 +66,7 @@ However, as stated above, the ardupilot code base is full of bugs that are very 
 Unfortunately, the reason for this is not known.
 
 A second error our team found  is a floating point error with the ardupilot code that could occur at seemingly any point during the simulation. After extensive testing and debugging, creating a custom build of the out-of-box version of Ardupilot could work. This build 
-would replace the ArduPilotBuild.exe file in our repository. The github for ardupilot is: https://github.com/ArduPilot/ardupilot. 
+would replace the ArduPilotBuild.exe file in our repository. The github for ardupilot is [here](https://github.com/ArduPilot/ardupilot) 
 
 A third issue that has occurred for some users causes the XPlaneBuffer.js file to throw an error saying "doesn't recognize extplanejs". The solution here would be to go to the directory of XPlaneBuffer.js on a command prompt and type "npm install extplanejs". 
 
