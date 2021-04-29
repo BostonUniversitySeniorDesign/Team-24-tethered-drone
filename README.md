@@ -70,11 +70,18 @@ would replace the ArduPilotBuild.exe file in our repository. See [ArduPilot gith
 
 A third issue that has occurred for some users causes the XPlaneBuffer.js file to throw an error saying "doesn't recognize extplanejs". The solution here would be to go to the directory of XPlaneBuffer.js on a command prompt and type "npm install extplanejs". 
 
-A fourth error that may arise is that .bat files may not be compatible with certain local machines.
+A fourth error: due to CPU-intense nature of this project, the RAM/CPU may not be enough to handle the co-simulation necessary for a successful simulation. The error that can occur here is XPlane crashing. If this happens,  quit all processes besides the necessary ones meaning the command line, Xplane, and mission planner, then retry. If this doesn't solve the problem, see the README_HARDWARE.md for proper specifications on the machine one needs for this project. 
+
+A fifth error that could occur is a pathfile error, meaning the cloned code contains a path to a file that doesn’t exist on one’s local machine. The error here would be in the first few lines of calculate.py where file locations need to point to nodeOutput.txt. 
+
+A sixth error that can occur is if another program is using the 49000 or 51000 ports. These ports are used in this simulation and if they are used in another program, the connection between node.js and Xplane will not work. Also make sure these ports are set correctly in Xplane and mission planner and node.js. 
+
+
+A seventh error that may arise is that .bat files may not be compatible with certain local machines.
 If that is the case, the solution would be to run the command line prompts found in the .bat files separately. Below, there's an explanation of how to solve this error. 
 
 
-**Solve #4 error: Manual Mode:**
+**Solve #7 error: Manual Mode:**
 1. Run X-Plane
 2. Open 3 different Command Prompt Windows – the 3 following lines get their own Command Prompt Window - PATH\TO\FILE\LOCATION should reflect the file path where the 	github repo was cloned
 	- start cmd.exe /k "cd PATH\TO\FILE\LOCATION && node XPlaneBuffer.js"
@@ -84,7 +91,7 @@ If that is the case, the solution would be to run the command line prompts found
 4. Manually fly the drone simulation with either mouse or joystick
 5. Hit ctrl+c on command prompt running XPlaneAddOn.py (when desired)
 	
-**Solve #4 error Automatic Mode:**
+**Solve #7 error Automatic Mode:**
 1. Run X-Plane
 2. Open 3 different Command Prompt Windows – the 5 following lines get their own Command Prompt Window - PATH\TO\FILE\LOCATION should reflect the file path where the 		github repo was cloned
 	- start cmd.exe /k "cd PATH\TO\FILE\LOCATION && node XPlaneBuffer.js"
